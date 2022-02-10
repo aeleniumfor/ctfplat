@@ -1,0 +1,19 @@
+version: "3"
+services:
+  database:
+    image: postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: laravel_docker
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+  application:
+    image: composer:2.2.5
+    ports:
+        - '8080:8080'
+    volumes:
+      - ./:/workdir
+    command: /bin/sh -c "while :; do sleep 10; done"
